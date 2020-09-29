@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
+import { isCompositeComponentWithType } from 'react-dom/test-utils';
 export const addComment = (imageId, rating, author, comment) => ({
   type: ActionTypes.ADD_COMMENT,
   payload: {
@@ -13,8 +14,26 @@ export const addComment = (imageId, rating, author, comment) => ({
 export const fetchImages = () => (dispatch) => {
   dispatch(imagesLoading());
   return fetch(baseUrl + 'image_gallery')
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            'Error ' + response.status + ': ' + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
     .then((response) => response.json())
-    .then((images) => dispatch(addImages(images)));
+    .then((images) => dispatch(addImages(images)))
+    .catch((error) => dispatch(imagesFailed(error.message)));
 };
 
 export const imagesLoading = () => ({
@@ -34,8 +53,26 @@ export const addImages = (images) => ({
 // Comments
 export const fetchComments = () => (dispatch) => {
   return fetch(baseUrl + 'comments')
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            'Error ' + response.status + ': ' + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
     .then((response) => response.json())
-    .then((comments) => dispatch(addComments(comments)));
+    .then((comments) => dispatch(addComments(comments)))
+    .catch((error) => dispatch(commentsFailed(error.message)));
 };
 
 export const commentsFailed = (errmess) => ({
@@ -52,8 +89,26 @@ export const addComments = (comments) => ({
 export const fetchWelcome = () => (dispatch) => {
   dispatch(welcomeLoading());
   return fetch(baseUrl + 'welcome')
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            'Error ' + response.status + ': ' + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
     .then((response) => response.json())
-    .then((welcome) => dispatch(addWelcome(welcome)));
+    .then((welcome) => dispatch(addWelcome(welcome)))
+    .catch((error) => dispatch(welcomeFailed(error.message)));
 };
 
 export const welcomeLoading = () => ({
@@ -75,8 +130,26 @@ export const fetchRiver = () => (dispatch) => {
   dispatch(riverLoading());
 
   return fetch(baseUrl + 'river')
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            'Error ' + response.status + ': ' + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
     .then((response) => response.json())
-    .then((river) => dispatch(addRiver(river)));
+    .then((river) => dispatch(addRiver(river)))
+    .catch((error) => dispatch(riverFailed(error.message)));
 };
 
 export const riverLoading = () => ({
@@ -98,8 +171,26 @@ export const fetchVikos = () => (dispatch) => {
   dispatch(vikosLoading());
 
   return fetch(baseUrl + 'vikos')
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            'Error ' + response.status + ': ' + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
     .then((response) => response.json())
-    .then((vikos) => dispatch(addVikos(vikos)));
+    .then((vikos) => dispatch(addVikos(vikos)))
+    .catch((error) => dispatch(vikosFailed(error.message)));
 };
 
 export const vikosLoading = () => ({
