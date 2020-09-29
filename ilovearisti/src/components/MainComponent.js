@@ -8,7 +8,16 @@ import Footer from './FooterComponent';
 import Contact from './ContactComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addComment, fetchImages } from '../redux/ActionCreators';
+import { actions } from 'react-redux-form';
+
+import {
+  addComment,
+  fetchImages,
+  fetchComments,
+  fetchWelcome,
+  fetchRiver,
+  fetchVikos,
+} from '../redux/ActionCreators';
 
 const mapStateToProps = (state) => {
   return {
@@ -26,6 +35,13 @@ const mapDispatchToProps = (dispatch) => ({
   fetchImages: () => {
     dispatch(fetchImages());
   },
+  resetFeedbackForm: () => {
+    dispatch(actions.reset('feedback'));
+  },
+  fetchComments: () => dispatch(fetchComments()),
+  fetchWelcome: () => dispatch(fetchWelcome()),
+  fetchRiver: () => dispatch(fetchRiver()),
+  fetchVikos: () => dispatch(fetchVikos()),
 });
 class Main extends Component {
   constructor(props) {
@@ -34,6 +50,10 @@ class Main extends Component {
 
   componentDidMount() {
     this.props.fetchImages();
+    this.props.fetchRiver();
+    this.props.fetchVikos();
+    this.props.fetchComments();
+    this.props.fetchWelcome();
   }
   render() {
     const ImageWithId = ({ match }) => {
@@ -46,7 +66,7 @@ class Main extends Component {
           }
           isLoading={this.props.image_gallery.isLoading}
           errMess={this.props.image_gallery.errMess}
-          comments={this.props.comments.filter(
+          comments={this.props.comments.comments.filter(
             (comment) => comment.imageId === parseInt(match.params.imageId, 10)
           )}
           addComment={this.props.addComment}
@@ -57,14 +77,30 @@ class Main extends Component {
     const HomePage = () => {
       return (
         <Home
+          // Gallery
           gallery={
             this.props.image_gallery.images.filter((image) => image.featured)[0]
           }
           imagesLoading={this.props.image_gallery.isLoading}
           imagesErrMess={this.props.image_gallery.errMess}
-          welcome={this.props.welcome.filter((welcome) => welcome.featured)[0]}
-          river={this.props.river.filter((river) => river.featured)[0]}
-          vikos={this.props.vikos.filter((vikos) => vikos.featured)[0]}
+          // Welcome
+          welcome={this.props.welcome.welcome.filter((w) => w.featured)[0]}
+          welcomeLoading={this.props.welcome.isLoading}
+          welcomeErrMess={this.props.welcome.errMess}
+          // River
+          river={
+            this.props.river.voidomatis_river.filter(
+              (river) => river.featured
+            )[0]
+          }
+          riverLoading={this.props.river.isLoading}
+          riverErrMess={this.props.river.errMess}
+          // Vikos
+          vikos={
+            this.props.vikos.vikos_canyon.filter((vikos) => vikos.featured)[0]
+          }
+          vikosLoading={this.props.vikos.isLoading}
+          vikosErrMess={this.props.vikos.errMess}
         />
       );
     };

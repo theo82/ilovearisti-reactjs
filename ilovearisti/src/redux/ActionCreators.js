@@ -1,5 +1,5 @@
 import * as ActionTypes from './ActionTypes';
-import { IMAGE_GALLERY } from '../shared/image_gallery';
+import { baseUrl } from '../shared/baseUrl';
 export const addComment = (imageId, rating, author, comment) => ({
   type: ActionTypes.ADD_COMMENT,
   payload: {
@@ -11,11 +11,10 @@ export const addComment = (imageId, rating, author, comment) => ({
 });
 
 export const fetchImages = () => (dispatch) => {
-  dispatch(imagesLoading(true));
-
-  setTimeout(() => {
-    dispatch(addImages(IMAGE_GALLERY));
-  }, 2000);
+  dispatch(imagesLoading());
+  return fetch(baseUrl + 'image_gallery')
+    .then((response) => response.json())
+    .then((images) => dispatch(addImages(images)));
 };
 
 export const imagesLoading = () => ({
@@ -30,4 +29,89 @@ export const imagesFailed = (errmess) => ({
 export const addImages = (images) => ({
   type: ActionTypes.ADD_IMAGES,
   payload: images,
+});
+
+// Comments
+export const fetchComments = () => (dispatch) => {
+  return fetch(baseUrl + 'comments')
+    .then((response) => response.json())
+    .then((comments) => dispatch(addComments(comments)));
+};
+
+export const commentsFailed = (errmess) => ({
+  type: ActionTypes.COMMENTS_FAILED,
+  payload: errmess,
+});
+
+export const addComments = (comments) => ({
+  type: ActionTypes.ADD_COMMENTS,
+  payload: comments,
+});
+
+//Welcome
+export const fetchWelcome = () => (dispatch) => {
+  dispatch(welcomeLoading());
+  return fetch(baseUrl + 'welcome')
+    .then((response) => response.json())
+    .then((welcome) => dispatch(addWelcome(welcome)));
+};
+
+export const welcomeLoading = () => ({
+  type: ActionTypes.WELCOME_LOADING,
+});
+
+export const welcomeFailed = (errmess) => ({
+  type: ActionTypes.WELCOME_FAILED,
+  payload: errmess,
+});
+
+export const addWelcome = (welcome) => ({
+  type: ActionTypes.ADD_WELCOME,
+  payload: welcome,
+});
+
+//River
+export const fetchRiver = () => (dispatch) => {
+  dispatch(riverLoading());
+
+  return fetch(baseUrl + 'river')
+    .then((response) => response.json())
+    .then((river) => dispatch(addRiver(river)));
+};
+
+export const riverLoading = () => ({
+  type: ActionTypes.RIVER_LOADING,
+});
+
+export const riverFailed = (errmess) => ({
+  type: ActionTypes.RIVER_FAILED,
+  payload: errmess,
+});
+
+export const addRiver = (river) => ({
+  type: ActionTypes.ADD_RIVER,
+  payload: river,
+});
+
+//Vikos
+export const fetchVikos = () => (dispatch) => {
+  dispatch(vikosLoading());
+
+  return fetch(baseUrl + 'vikos')
+    .then((response) => response.json())
+    .then((vikos) => dispatch(addVikos(vikos)));
+};
+
+export const vikosLoading = () => ({
+  type: ActionTypes.VIKOS_LOADING,
+});
+
+export const vikosFailed = (errmess) => ({
+  type: ActionTypes.VIKOS_FAILED,
+  payload: errmess,
+});
+
+export const addVikos = (vikos) => ({
+  type: ActionTypes.ADD_VIKOS,
+  payload: vikos,
 });

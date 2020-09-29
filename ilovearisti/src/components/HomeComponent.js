@@ -8,16 +8,34 @@ import {
   Media,
 } from 'reactstrap';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderCard({ item, isLoading, errMess }) {
   if (isLoading) {
-    return <Loading />;
+    return (
+      <div className='container'>
+        <div className='row'>
+          <Loading />
+        </div>
+      </div>
+    );
   } else if (errMess) {
-    return <h4>{errMess}</h4>;
+    return (
+      <div className='container'>
+        <div className='row'>
+          {' '}
+          <h4>{errMess}</h4>
+        </div>
+      </div>
+    );
   } else
     return (
       <Card style={{ padding: 15 }}>
-        <CardImg src={item.image} alt={item.name} className='my_image' />
+        <CardImg
+          src={baseUrl + item.image}
+          alt={item.name}
+          className='my_image'
+        />
         <CardBody>
           <CardTitle>{item.name}</CardTitle>
           <CardText>{item.description}</CardText>
@@ -30,7 +48,11 @@ function Home(props) {
   return (
     <div className='container'>
       <div className='col-12 col-md m-1'>
-        <RenderCard item={props.welcome} />
+        <RenderCard
+          item={props.welcome}
+          isLoading={props.welcomeLoading}
+          errMess={props.welcomeErrMess}
+        />
       </div>
       <div className='row align-items-start'>
         <div className='col-12 col-md m-1'>
@@ -41,10 +63,18 @@ function Home(props) {
           />
         </div>
         <div className='col-12 col-md m-1'>
-          <RenderCard item={props.river} />
+          <RenderCard
+            item={props.river}
+            isLoading={props.riverLoading}
+            errMess={props.riverErrMess}
+          />
         </div>
         <div className='col-12 col-md m-1'>
-          <RenderCard item={props.vikos} />
+          <RenderCard
+            item={props.vikos}
+            isLoading={props.vikosLoading}
+            errMess={props.vikosErrMEss}
+          />
         </div>
       </div>
     </div>

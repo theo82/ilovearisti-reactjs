@@ -12,7 +12,7 @@ import {
   CardText,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
+import { baseUrl } from '../shared/baseUrl';
 function RenderHistory({ history }) {
   return (
     <div key={history.id}>
@@ -25,7 +25,7 @@ function RenderHistory({ history }) {
                   width: 250,
                   left: 200,
                 }}
-                src={history.image}
+                src={baseUrl + history.image}
                 alt={history.name}
               />
             </div>
@@ -42,7 +42,7 @@ function RenderHistory({ history }) {
 }
 
 function History(props) {
-  const villageHistory = props.history.map((history) => {
+  const villageHistory = props.history.welcome.map((history) => {
     return <RenderHistory history={history} />;
   });
 

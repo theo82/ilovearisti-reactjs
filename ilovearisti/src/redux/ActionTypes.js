@@ -2,3 +2,19 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const IMAGES_LOADING = 'IMAGES_LOADING';
 export const IMAGES_FAILED = 'IMAGES_FAILED';
 export const ADD_IMAGES = 'ADD_IMAGES';
+
+export const ADD_COMMENTS = 'ADD_COMMENTS';
+export const COMMENTS_FAILED = 'COMMENTS_FAILED';
+export const PROMOS_LOADING = 'PROMOS_LOADING';
+
+export const ADD_WELCOME = 'ADD_WELCOME';
+export const WELCOME_FAILED = 'WELCOME_FAILED';
+export const WELCOME_LOADING = 'WELCOME_LOADING';
+
+export const ADD_RIVER = 'ADD_RIVER';
+export const RIVER_FAILED = 'RIVER_FAILED';
+export const RIVER_LOADING = 'RIVER_LOADING';
+
+export const ADD_VIKOS = 'ADD_VIKOS';
+export const VIKOS_FAILED = 'VIKOS_FAILED';
+export const VIKOS_LOADING = 'VIKOS_LOADING';

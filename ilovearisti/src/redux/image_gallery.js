@@ -7,7 +7,6 @@ export const image_gallery = (
   switch (action.type) {
     case ActionTypes.ADD_IMAGES:
       return {
-        ...state,
         isLoading: false,
         errMess: null,
         images: action.payload,

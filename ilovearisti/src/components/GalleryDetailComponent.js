@@ -21,12 +21,17 @@ import {
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderImage({ gallery }) {
   return (
     <div className='col-12 col-md-5 m-1'>
       <Card>
-        <CardImg width='100%' src={gallery.image} alt={gallery.name} />
+        <CardImg
+          width='100%'
+          src={baseUrl + gallery.image}
+          alt={gallery.name}
+        />
         <CardBody>
           <CardTitle>{gallery.name}</CardTitle>
           <CardText>{gallery.description}</CardText>
