@@ -17,6 +17,7 @@ import {
   fetchWelcome,
   fetchRiver,
   fetchVikos,
+  postFeedback,
 } from '../redux/ActionCreators';
 
 const mapStateToProps = (state) => {
@@ -42,6 +43,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchWelcome: () => dispatch(fetchWelcome()),
   fetchRiver: () => dispatch(fetchRiver()),
   fetchVikos: () => dispatch(fetchVikos()),
+  postFeedback: (feedback) => dispatch(postFeedback(feedback)),
 });
 class Main extends Component {
   constructor(props) {
@@ -130,7 +132,16 @@ class Main extends Component {
             )}
           />
           <Route path='/gallery/:imageId' component={ImageWithId} />
-          <Route exact path='/contactus' component={Contact} />
+          <Route
+            exact
+            path='/contactus'
+            component={() => (
+              <Contact
+                resetFeedbackForm={this.props.resetFeedbackForm}
+                postFeedback={this.props.postFeedback}
+              />
+            )}
+          />
           <Redirect to='/home' />
         </Switch>
         <Footer />
