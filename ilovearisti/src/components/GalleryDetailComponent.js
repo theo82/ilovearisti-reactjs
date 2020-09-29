@@ -44,7 +44,7 @@ function RenderImage({ gallery }) {
 /*
  * Rendering the comments
  */
-function RenderComments({ comments, addComment, imageId }) {
+function RenderComments({ comments, postComment, imageId }) {
   // console.log(comments)
   if (comments != null) {
     let list = comments.map((comments) => {
@@ -69,7 +69,7 @@ function RenderComments({ comments, addComment, imageId }) {
       <div className='col-12 col-md-5 m-1'>
         <h4>Comments</h4>
         <ul className='list-unstyled'>{list}</ul>
-        <CommentForm imageId={imageId} addComment={addComment} />
+        <CommentForm imageId={imageId} postComment={postComment} />
       </div>
     );
   } else {
@@ -113,7 +113,7 @@ const GalleryDetail = (props) => {
           <RenderImage gallery={props.selected_image} />
           <RenderComments
             comments={props.comments}
-            addComment={props.addComment}
+            postComment={props.postComment}
             imageId={props.selected_image.id}
           />
         </div>
@@ -149,7 +149,7 @@ class CommentForm extends Component {
 
     // console.log('Current State is: ' + JSON.stringify(values));
     // alert('Current State is: ' + JSON.stringify(values));
-    this.props.addComment(
+    this.props.postComment(
       this.props.imageId,
       values.rating,
       values.author,

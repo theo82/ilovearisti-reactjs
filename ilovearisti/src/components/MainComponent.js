@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
 
 import {
-  addComment,
+  postComment,
   fetchImages,
   fetchComments,
   fetchWelcome,
@@ -30,8 +30,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addComment: (imageId, rating, author, comment) =>
-    dispatch(addComment(imageId, rating, author, comment)),
+  postComment: (imageId, rating, author, comment) =>
+    dispatch(postComment(imageId, rating, author, comment)),
   fetchImages: () => {
     dispatch(fetchImages());
   },
@@ -69,7 +69,7 @@ class Main extends Component {
           comments={this.props.comments.comments.filter(
             (comment) => comment.imageId === parseInt(match.params.imageId, 10)
           )}
-          addComment={this.props.addComment}
+          postComment={this.props.postComment}
         />
       );
     };
